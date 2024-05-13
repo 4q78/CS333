@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 07, 2024 at 01:38 AM
+-- Generation Time: May 13, 2024 at 10:29 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -119,6 +119,52 @@ INSERT INTO `products` (`pid`, `categoryid`, `name`, `price`, `qty`, `picture`, 
 (24, 6, 'Butter', 1.94, 10, 'butter.jpeg', 'SUE BEE PEANUT BUTTER CREAMY 340 G'),
 (25, 6, 'Corn', 1.69, 10, 'corn.jpg', 'NATCO WHOLE KERNAL CORN 4X425G');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `userid` int(11) NOT NULL,
+  `username` varchar(50) DEFAULT NULL,
+  `userpassword` varchar(100) DEFAULT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  `usertype_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`userid`, `username`, `userpassword`, `name`, `usertype_id`) VALUES
+(2, 'zmxwr', '$2y$10$wvlTRUWKwqH3VvrWxuE.2euWITl/kYD7RmTmd3bcyvh', 'Ali', NULL),
+(3, 'ali', '$2y$10$2Fp0aoD6noHZJdL.AvN3T.y7JArVQWIC6BVMy8EWgWr', 'Ali', NULL),
+(4, 'zmx', '$2y$10$oTb.Y/Xk08E1GovECOkRJevb9QhRCzSRb3fawZ5QiH7EZPZPOfu42', 'Ali', NULL),
+(5, 'zahid', '$2y$10$DneNmpQuGeYJC10LjvQb5OWLUTAvn1Tt6qNHPw.jSxmN8x82mFb1a', 'zahid', NULL),
+(6, 'Alsagheh', '$2y$10$fgl50iUnjOLLPXIOW5c64.cMjLG1qQgVjTOOF.KqFvwCUWnx4Wf7y', 'Ali Alsagheh', NULL),
+(7, '03eez', '$2y$10$76gGzOjtgM4bWsZRNYf9gOLPf5g5KpxBKmKAUWp0VX9O7aLgUrJei', '3z', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `usertype`
+--
+
+CREATE TABLE `usertype` (
+  `usertype_id` int(11) NOT NULL,
+  `usertype` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `usertype`
+--
+
+INSERT INTO `usertype` (`usertype_id`, `usertype`) VALUES
+(1, 'admin'),
+(2, 'staff'),
+(3, 'user');
+
 --
 -- Indexes for dumped tables
 --
@@ -149,6 +195,19 @@ ALTER TABLE `products`
   ADD KEY `FK` (`categoryid`);
 
 --
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`userid`),
+  ADD KEY `usertype_id` (`usertype_id`);
+
+--
+-- Indexes for table `usertype`
+--
+ALTER TABLE `usertype`
+  ADD PRIMARY KEY (`usertype_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -177,6 +236,18 @@ ALTER TABLE `products`
   MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `usertype`
+--
+ALTER TABLE `usertype`
+  MODIFY `usertype_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- Constraints for dumped tables
 --
 
@@ -185,6 +256,12 @@ ALTER TABLE `products`
 --
 ALTER TABLE `products`
   ADD CONSTRAINT `FK` FOREIGN KEY (`categoryid`) REFERENCES `category` (`categoryid`);
+
+--
+-- Constraints for table `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`usertype_id`) REFERENCES `usertype` (`usertype_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
